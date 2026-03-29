@@ -40,3 +40,54 @@ Ikuti langkah-langkah berikut untuk mengonfigurasi dan menjalankan *environment*
 ```bash
 git clone [https://github.com/RafiAchmadN/EShowcase-DTEO.git](https://github.com/RafiAchmadN/EShowcase-DTEO.git)
 cd EShowcase-DTEO
+```
+2. Instalasi Dependensi Backend (Composer)
+Karena folder vendor tidak diikutsertakan di GitHub, gunakan image Docker sementara ini untuk menginstal dependensi PHP (Laravel Sail) di awal:
+
+```Bash
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php83-composer:latest \
+    composer install --ignore-platform-reqs
+```
+3. Konfigurasi Environment
+Salin file .env.example untuk membuat file konfigurasi .env Anda sendiri. Biarkan pengaturan database bawaannya karena Docker sudah mengaturnya secara otomatis:
+
+```Bash
+cp .env.example .env
+```
+4. Menjalankan Docker Container
+Nyalakan container untuk Web Server, PHP, dan MySQL di latar belakang:
+
+```Bash
+./vendor/bin/sail up -d
+```
+
+5. Setup Aplikasi (Key, Database, Storage)
+Jalankan perintah Artisan berikut untuk menginisialisasi aplikasi Laravel Anda:
+
+```Bash
+# Membuat kunci keamanan aplikasi
+./vendor/bin/sail artisan key:generate
+
+# Menjalankan migrasi untuk membuat tabel database
+./vendor/bin/sail artisan migrate
+
+# Membuat symlink agar file/gambar/model 3D yang diunggah dapat diakses publik
+./vendor/bin/sail artisan storage:link
+```
+6. Instalasi dan Kompilasi Frontend (React & Tailwind)
+Instal dependensi Node.js dan jalankan server pengembangan (Vite) untuk merender tampilan antarmuka:
+
+```Bash
+# Instalasi library frontend
+./vendor/bin/sail npm install --legacy-peer-deps
+
+# Menjalankan Vite (Hot-Module Replacement)
+./vendor/bin/sail npm run dev
+```
+🌐 Mengakses Aplikasi
+Setelah seluruh langkah di atas berhasil dijalankan tanpa error, aplikasi dapat diakses melalui peramban web pada alamat:
+http://localhost
