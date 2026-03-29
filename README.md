@@ -32,7 +32,7 @@ Pastikan sistem Anda telah terinstal perangkat lunak berikut sebelum melakukan i
 
 ---
 
-## 🚀 Panduan Instalasi (Development Setup)
+## Setup
 
 Ikuti langkah-langkah berikut untuk mengonfigurasi dan menjalankan *environment* pengembangan di komputer lokal Anda:
 
