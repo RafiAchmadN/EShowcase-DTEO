@@ -117,6 +117,6 @@ Indikasi: Server frontend Vite tidak berjalan atau mengalami crash.
 
 Resolusi: Pastikan terminal yang mengeksekusi 
 ```
-./vendor/bin/sail
+./vendor/bin/sail npm run dev 
 ```
-npm run dev tetap aktif dan tidak menampilkan pesan error kompilasi.
+tetap aktif dan tidak menampilkan pesan error kompilasi.
